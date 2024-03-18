@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34330.188
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CallServer", "CallServer.csproj", "{DC35488B-1934-4242-A201-893ED4E99411}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DC35488B-1934-4242-A201-893ED4E99411}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DC35488B-1934-4242-A201-893ED4E99411}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DC35488B-1934-4242-A201-893ED4E99411}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DC35488B-1934-4242-A201-893ED4E99411}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {1EE533B8-2907-49AE-B3D4-023F7AF1D0B1}
+	EndGlobalSection
+EndGlobal
