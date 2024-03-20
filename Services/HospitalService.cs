@@ -12,18 +12,38 @@ namespace CallServer.Services
         private readonly IHospitalRepository _hospitalRepository;
         private readonly IAgentService _agentService;
         private readonly ICallDetailService _callDetailService;
-        private readonly IStatusService _statusService;
         private readonly IHubContext<Dashboard> _dashboard;
 
 
-        public HospitalService(IHospitalRepository hospitalRepository, IAgentService agentService, ICallDetailService callDetailService, IStatusService statusService, IHubContext<Dashboard> dashboard)
+        public HospitalService(IHospitalRepository hospitalRepository, IAgentService agentService, ICallDetailService callDetailService, IHubContext<Dashboard> dashboard)
         {
             _hospitalRepository = hospitalRepository;
             _agentService = agentService;
             _callDetailService = callDetailService;
             _dashboard = dashboard;
-            _statusService = statusService;
 
+        }
+
+
+        public async Task<IEnumerable<HospitalResponseDto>> GetHospitalResponseDtosAsync()
+        {
+            var hospitals = await _hospitalRepository.GetAllHospitalsAsync();
+            List<HospitalResponseDto> responseDtos = new List<HospitalResponseDto>();
+            foreach (var hospital in hospitals)
+            {
+                responseDtos.Add(new HospitalResponseDto
+                {
+                    HospitalId = hospital.Hid,
+                    HospitalName = hospital.Hname,
+                    Location = (hospital.Location ?? "NULL")
+                });
+            }
+            return responseDtos;
+        }
+
+        public async Task<Hospital> AddHospitalAsync(string hospitalName, string location)
+        {
+            return await _hospitalRepository.AddHospitalAsync(new Hospital { Hname=hospitalName, Location=location });
         }
 
         public async Task<bool> ConnectAgentAsync(long hospitalId, string channelId)

@@ -21,6 +21,17 @@ namespace CallServer.Repositories
         }
 
 
-        /* methods will be implemented as needed */
+        public async Task<IEnumerable<Hospital>> GetAllHospitalsAsync()
+        {
+            return await _dbContext.Hospitals.ToListAsync();
+        }
+
+        public async Task<Hospital> AddHospitalAsync(Hospital hospital)
+        {
+            _dbContext.Hospitals .Add(hospital);
+            await _dbContext.SaveChangesAsync();
+            return hospital;
+        }
+
     }
 }

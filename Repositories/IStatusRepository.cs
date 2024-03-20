@@ -6,5 +6,6 @@ namespace CallServer.Repositories
     {
         Task<Status?> GetStatusByIdAsync(int statusId);
         Task<IEnumerable<Status>> GetAllStatusAsync();
+        Task<Status> AddStatusAsync(Status status);
     }
 }

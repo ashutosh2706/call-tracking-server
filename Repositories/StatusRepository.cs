@@ -21,5 +21,12 @@ namespace CallServer.Repositories
         {
             return await _dbContext.Statuses.ToListAsync();
         }
+
+        public async Task<Status> AddStatusAsync(Status status)
+        {
+            _dbContext.Statuses.Add(status);
+            await _dbContext.SaveChangesAsync();
+            return status;
+        }
     }
 }

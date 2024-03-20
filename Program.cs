@@ -2,11 +2,14 @@ using CallServer.Data;
 using CallServer.Hubs;
 using CallServer.Repositories;
 using CallServer.Services;
+using Microsoft.AspNetCore.Diagnostics;
+using System.Net;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddDbContext<CallTrackingDbContext>();
+builder.Services.AddHttpContextAccessor();
 
 builder.Services.AddScoped<IAgentRepository, AgentRepository>();
 builder.Services.AddScoped<IHospitalRepository, HospitalRepository>();
@@ -41,13 +44,27 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseExceptionHandler(options =>
+{
+    options.Run(async context =>
+    {
+        context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+        var exception = context.Features.Get<IExceptionHandlerFeature>();
+        if(exception != null)
+        {
+            await context.Response.WriteAsync(exception.Error.Message);
+        }
+    });
+});
+
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
 app.UseCors("ClientPermission");
 
 app.MapControllers();
-app.MapHub<Hospital_1>("/hub/call/1");
-app.MapHub<Hospital_2>("/hub/call/2");
+
+app.MapHub<CallHub>("/hub/call");
 app.MapHub<Dashboard>("/hub/dashboard");
+
 app.Run();
